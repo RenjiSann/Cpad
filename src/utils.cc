@@ -17,7 +17,7 @@ void home_file_check(const std::string &home_path)
     cpad_file.close();
 }
 
-bool check_arguments(int argc, std::vector<std::string> &lines, char **argv)
+bool check_emoji(int argc, std::vector<std::string> &lines, char **argv)
 {
     std::string False = "0";
     std::string True = "1";

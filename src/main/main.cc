@@ -85,7 +85,7 @@ int main(int argc, char **argv)
 
 
     auto lines = get_all_lines(home_path);
-    bool display_emoji = check_arguments(argc, lines, argv);
+    bool display_emoji = check_emoji(argc, lines, argv);
 
     rewrite(home_path, lines, display_emoji);
     auto map = Convertor::instance().read(home_path, display_emoji);
