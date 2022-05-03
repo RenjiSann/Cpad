@@ -1,13 +1,20 @@
 #include "utils.hh"
 
-void home_file_check(std::ifstream &cpad_file, std::string &home_path)
+#include <fstream>
+
+void home_file_check(const std::string &home_path)
 {
-    cpad_file.open(home_path);
-    if (!cpad_file)
+    std::ifstream cpad_file(home_path);
+
+    // If cpad_file is not open, it means it does nots exist.
+    if (!cpad_file.is_open())
     {
+        // Create the file and save the default config in it.
         std::ofstream outfile(home_path);
         outfile << "EMOJI TRUE\nCURRENT .\n--STOP--";
+        outfile.close();
     }
+    cpad_file.close();
 }
 
 bool check_arguments(int argc, std::vector<std::string> &lines, char **argv)

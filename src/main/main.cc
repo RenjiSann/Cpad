@@ -7,6 +7,7 @@
 #include <sstream>
 #include <stack>
 #include <string>
+#include <unistd.h>
 
 #include "argument-type.hh"
 #include "convertor.hh"
@@ -80,8 +81,8 @@ void launch(std::map<std::string, Folder> &map, std::string &home_path,
 int main(int argc, char **argv)
 {
     auto home_path = std::string(getenv("HOME")) + "/.cpad";
-    std::ifstream cpad_file;
-    home_file_check(cpad_file, home_path);
+    home_file_check(home_path);
+
 
     auto lines = get_all_lines(home_path);
     bool display_emoji = check_arguments(argc, lines, argv);

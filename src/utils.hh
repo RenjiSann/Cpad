@@ -8,7 +8,12 @@
 #include <string>
 #include <vector>
 
-void home_file_check(std::ifstream &cpad_file, std::string &home_path);
+/**
+ * @brief Check for config file and create it if does not exist.
+ * 
+ * @param home_path : path to the file to check.
+ */
+void home_file_check(const std::string &home_path);
 
 bool check_arguments(int argc, std::vector<std::string> &lines, char **argv);
 
