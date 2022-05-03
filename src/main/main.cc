@@ -8,12 +8,12 @@
 #include <stack>
 #include <string>
 
-#include "../argument-type.hh"
-#include "../convertor.hh"
-#include "../display.hh"
-#include "../executor.hh"
-#include "../scaner.hh"
-#include "../utils.hh"
+#include "argument-type.hh"
+#include "convertor.hh"
+#include "display.hh"
+#include "executor.hh"
+#include "scaner.hh"
+#include "utils.hh"
 
 void manage_directory(std::stack<std::string> &last_folders,
                       std::string &current_folder,

@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.10)
 
 project(cpad)
 
+# Generate the compile_commands.json file
+# for clangd.
+set(CMAKE_EXPORT_COMPILE_COMMANDS true)
+
 set(TARGET_NAME "cpad")
 set(COMPILE_OPTIONS -Wall -Wextra -Werror -pedantic)
 set(CMAKE_STATIC_LIBRARY_PREFIX_CXX "")
@@ -19,6 +23,9 @@ add_library(libcpad STATIC ${SOURCE_FILES})
 
 add_executable(${TARGET_NAME} ${EXECUTABLE_SOURCE_FILES})
 target_link_libraries(${TARGET_NAME} PRIVATE libcpad)
+
+# Add -Isrc/ to the compilation flags and find all header files.
+include_directories(src/)
 
 add_subdirectory(tests/)
 
