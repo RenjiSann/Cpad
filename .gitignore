@@ -42,3 +42,7 @@ src/CMakeFiles/
 src/Makefile
 src/cmake_install.cmake
 Makefile
+
+# Build files
+build/
+.cache/
