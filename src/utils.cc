@@ -29,7 +29,7 @@ bool check_arguments(int argc, std::vector<std::string> &lines, char **argv)
     std::string token;
     stream >> token;
     stream >> token;
-    return token == "TRUE" ? true : false;
+    return token == "TRUE";
 }
 
 bool is_same_emoji_value(std::vector<std::string> &lines, bool value)
