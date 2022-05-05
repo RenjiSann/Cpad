@@ -37,9 +37,10 @@ namespace Cpad
 
     public:
         /* Constructors */
-        Config(const std::string &path);
+
         Config(Config &&) = delete;
         Config(const Config &) = delete;
+        Config(const std::string &path);
 
         /* Methods */
         /**

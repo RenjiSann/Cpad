@@ -21,6 +21,7 @@
 #define COMMAND_COMMAND "cmd"
 
 #define COMBO_COMMANDS "cmds"
+#define COMBO_NAME "name"
 
 namespace Cpad
 {

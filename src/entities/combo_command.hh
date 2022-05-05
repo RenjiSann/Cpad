@@ -11,15 +11,17 @@ namespace Cpad
 {
     using ComboPtr = std::shared_ptr<ComboCommand>;
 
-    class ComboCommand: public Element
+    class ComboCommand : public Element
     {
     private:
+        std::string name_;
         std::vector<std::string> cmds_;
 
     public:
         /* Ctors */
-        ComboCommand() = default;
-        ComboCommand(const std::vector<std::string> &cmds_);
+        ComboCommand(const std::string &name);
+        ComboCommand(const std::string &name,
+                     const std::vector<std::string> &cmds);
 
         /* Static tor */
         static ComboPtr from_json(const json &obj_j);

@@ -10,6 +10,7 @@
         },
         {
             "type": "combo",
+            "name": "ls_echo",
             "cmds": [
                 "ls -a",
                 "echo [?]"
