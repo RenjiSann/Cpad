@@ -7,20 +7,20 @@
 #include "entities/element.hh"
 
 void Convertor::add_command(std::map<std::string, Folder> &map,
-                            std::string &key, std::string &command)
+                            const std::string &key, const std::string &command)
 {
     map[key].get_elements().push_back(Element(command, false));
 }
 
 void Convertor::remove_command(std::map<std::string, Folder> &map,
-                               std::string &key, size_t command_number)
+                               const std::string &key, size_t command_number)
 {
     map[key].get_elements().erase(map[key].get_elements().begin()
                                   + command_number - 1);
 }
 
 void Convertor::get_all_folders(std::map<std::string, Folder> &map,
-                                std::string &key,
+                                const std::string &key,
                                 std::vector<std::string> &folders_name)
 {
     for (auto &elem : map[key].get_elements())
@@ -34,8 +34,8 @@ void Convertor::get_all_folders(std::map<std::string, Folder> &map,
 }
 
 void Convertor::remove_folder(std::map<std::string, Folder> &map,
-                              std::string &current_folder,
-                              std::string &folder_name)
+                              const std::string &current_folder,
+                              const std::string &folder_name)
 {
     std::vector<std::string> folders_name;
     get_all_folders(map, folder_name, folders_name);
@@ -51,7 +51,7 @@ void Convertor::remove_folder(std::map<std::string, Folder> &map,
 }
 
 void Convertor::reset_folder(std::map<std::string, Folder> &map,
-                             std::string &key)
+                             const std::string &key)
 {
     std::vector<std::string> folders_name;
     get_all_folders(map, key, folders_name);
@@ -66,27 +66,29 @@ void Convertor::reset_all(std::map<std::string, Folder> &map)
     reset_folder(map, source);
 }
 
-void Convertor::add_folder(std::map<std::string, Folder> &map, std::string &key,
-                           std::string &folder_name)
+void Convertor::add_folder(std::map<std::string, Folder> &map,
+                           const std::string &key,
+                           const std::string &folder_name)
 {
     map[key].get_elements().push_back(Element(folder_name));
     map.insert({ folder_name, Folder() });
 }
 
-void Convertor::move(std::map<std::string, Folder> &map, std::string &key,
+void Convertor::move(std::map<std::string, Folder> &map, const std::string &key,
                      size_t src_index, size_t dst_index)
 {
     std::swap(map[key].get_elements()[src_index],
               map[key].get_elements()[dst_index]);
 }
 
-void Convertor::combo(std::map<std::string, Folder> &map, std::string &key,
-                      Element &combo)
+void Convertor::combo(std::map<std::string, Folder> &map,
+                      const std::string &key, Element &combo)
 {
     map[key].get_elements().push_back(combo);
 }
 
-std::map<std::string, Folder> Convertor::read(std::string &path, bool &emoji)
+std::map<std::string, Folder> Convertor::read(const std::string &path,
+                                              bool &emoji)
 {
     auto map = std::map<std::string, Folder>();
 
@@ -169,8 +171,8 @@ std::map<std::string, Folder> Convertor::read(std::string &path, bool &emoji)
     return map;
 }
 
-void Convertor::write(std::map<std::string, Folder> &map, std::string &path,
-                      bool emoji)
+void Convertor::write(std::map<std::string, Folder> &map,
+                      const std::string &path, bool emoji)
 {
     std::ofstream MyFile(path);
 

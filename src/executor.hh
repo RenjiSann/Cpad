@@ -37,34 +37,37 @@ public:
     using executor_result = std::pair<ExecutionType, std::string>;
 
     executor_result execute(std::map<std::string, Folder> &map,
-                            std::string &current_folder, Tokens &tokens,
-                            std::string &home_path, Element &element,
+                            const std::string &current_folder, Tokens &tokens,
+                            const std::string &home_path, Element &element,
                             bool emoji);
 
 private:
     Element &get_element_from_index(std::map<std::string, Folder> &map,
-                                    std::string &current_folder, size_t index);
+                                    const std::string &current_folder,
+                                    size_t index);
 
     executor_result execute_execution(std::map<std::string, Folder> &map,
-                                      std::string &current_folder,
+                                      const std::string &current_folder,
                                       Tokens &tokens, Element &elem_combo);
 
     executor_result execute_create_command(std::map<std::string, Folder> &map,
-                                           std::string &current_folder,
+                                           const std::string &current_folder,
                                            Tokens &tokens);
 
     executor_result execute_create_folder(std::map<std::string, Folder> &map,
-                                          std::string &current_folder,
+                                          const std::string &current_folder,
                                           Tokens &tokens);
     executor_result execute_delete(std::map<std::string, Folder> &map,
-                                   std::string &current_folder, Tokens &tokens);
+                                   const std::string &current_folder,
+                                   Tokens &tokens);
     executor_result execute_move(std::map<std::string, Folder> &map,
-                                 std::string &current_folder, Tokens &tokens);
+                                 const std::string &current_folder,
+                                 Tokens &tokens);
     executor_result execute_reset_folder(std::map<std::string, Folder> &map,
-                                         std::string &current_folder,
+                                         const std::string &current_folder,
                                          Tokens &tokens);
     executor_result execute_reset_all(std::map<std::string, Folder> &map);
     executor_result execute_create_combo(std::map<std::string, Folder> &map,
-                                         std::string &current_folder,
+                                         const std::string &current_folder,
                                          Tokens &tokens);
 };

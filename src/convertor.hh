@@ -9,26 +9,36 @@
 class Convertor : public Singleton<Convertor>
 {
 public:
-    std::map<std::string, Folder> read(std::string &path, bool &emoji);
-    void write(std::map<std::string, Folder> &map, std::string &path,
+    std::map<std::string, Folder> read(const std::string &path, bool &emoji);
+    void write(std::map<std::string, Folder> &map, const std::string &path,
                bool emoji);
 
-    void add_command(std::map<std::string, Folder> &map, std::string &key,
-                     std::string &command);
-    void add_folder(std::map<std::string, Folder> &map, std::string &key,
-                    std::string &folder_name);
-    void remove_command(std::map<std::string, Folder> &map, std::string &key,
-                        size_t command);
+    void add_command(std::map<std::string, Folder> &map, const std::string &key,
+                     const std::string &command);
+
+    void add_folder(std::map<std::string, Folder> &map, const std::string &key,
+                    const std::string &folder_name);
+
+    void remove_command(std::map<std::string, Folder> &map,
+                        const std::string &key, size_t command);
+
     void remove_folder(std::map<std::string, Folder> &map,
-                       std::string &current_folder, std::string &folder_name);
-    void reset_folder(std::map<std::string, Folder> &map, std::string &key);
+                       const std::string &current_folder,
+                       const std::string &folder_name);
+
+    void reset_folder(std::map<std::string, Folder> &map,
+                      const std::string &key);
+
     void reset_all(std::map<std::string, Folder> &map);
-    void move(std::map<std::string, Folder> &map, std::string &key,
+
+    void move(std::map<std::string, Folder> &map, const std::string &key,
               size_t src_index, size_t dst_index);
-    void combo(std::map<std::string, Folder> &map, std::string &key,
+
+    void combo(std::map<std::string, Folder> &map, const std::string &key,
                Element &combo);
 
 private:
-    void get_all_folders(std::map<std::string, Folder> &map, std::string &key,
+    void get_all_folders(std::map<std::string, Folder> &map,
+                         const std::string &key,
                          std::vector<std::string> &folders_name);
 };

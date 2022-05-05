@@ -10,7 +10,7 @@
 #include "convertor.hh"
 
 Element &Executor::get_element_from_index(std::map<std::string, Folder> &map,
-                                          std::string &current_folder,
+                                          const std::string &current_folder,
                                           size_t index)
 {
     return map[current_folder].get_elements()[index];
@@ -18,7 +18,7 @@ Element &Executor::get_element_from_index(std::map<std::string, Folder> &map,
 
 Executor::executor_result
 Executor::execute_execution(std::map<std::string, Folder> &map,
-                            std::string &current_folder, Tokens &tokens,
+                            const std::string &current_folder, Tokens &tokens,
                             Element &element_combo)
 {
     if (tokens.second[0] == "h")
@@ -42,7 +42,8 @@ Executor::execute_execution(std::map<std::string, Folder> &map,
 
 Executor::executor_result
 Executor::execute_create_command(std::map<std::string, Folder> &map,
-                                 std::string &current_folder, Tokens &tokens)
+                                 const std::string &current_folder,
+                                 Tokens &tokens)
 {
     Convertor::instance().add_command(map, current_folder, tokens.second[1]);
     return executor_result(Executor::ExecutionType::CREATE_COMMAND,
@@ -51,7 +52,8 @@ Executor::execute_create_command(std::map<std::string, Folder> &map,
 
 Executor::executor_result
 Executor::execute_create_folder(std::map<std::string, Folder> &map,
-                                std::string &current_folder, Tokens &tokens)
+                                const std::string &current_folder,
+                                Tokens &tokens)
 {
     Convertor::instance().add_folder(map, current_folder, tokens.second[1]);
     return executor_result(Executor::ExecutionType::CREATE_FOLDER,
@@ -60,7 +62,7 @@ Executor::execute_create_folder(std::map<std::string, Folder> &map,
 
 Executor::executor_result
 Executor::execute_delete(std::map<std::string, Folder> &map,
-                         std::string &current_folder, Tokens &tokens)
+                         const std::string &current_folder, Tokens &tokens)
 {
     size_t input_value = std::stoi(tokens.second[1]);
     auto element = get_element_from_index(map, current_folder, input_value - 1);
@@ -86,7 +88,7 @@ Executor::execute_delete(std::map<std::string, Folder> &map,
 
 Executor::executor_result
 Executor::execute_move(std::map<std::string, Folder> &map,
-                       std::string &current_folder, Tokens &tokens)
+                       const std::string &current_folder, Tokens &tokens)
 {
     size_t src_index_val = std::stoi(tokens.second[1]) - 1;
     size_t dst_index_val = std::stoi(tokens.second[2]) - 1;
@@ -98,7 +100,8 @@ Executor::execute_move(std::map<std::string, Folder> &map,
 
 Executor::executor_result
 Executor::execute_reset_folder(std::map<std::string, Folder> &map,
-                               std::string &current_folder, Tokens &tokens)
+                               const std::string &current_folder,
+                               Tokens &tokens)
 {
     size_t value = std::stoi(tokens.second[1]) - 1;
     auto element = get_element_from_index(map, current_folder, value);
@@ -116,7 +119,8 @@ Executor::execute_reset_all(std::map<std::string, Folder> &map)
 
 Executor::executor_result
 Executor::execute_create_combo(std::map<std::string, Folder> &map,
-                               std::string &current_folder, Tokens &tokens)
+                               const std::string &current_folder,
+                               Tokens &tokens)
 {
     std::string combo_name;
     auto token_name = tokens.second[1];
@@ -139,9 +143,9 @@ Executor::execute_create_combo(std::map<std::string, Folder> &map,
 }
 
 Executor::executor_result Executor::execute(std::map<std::string, Folder> &map,
-                                            std::string &current_folder,
+                                            const std::string &current_folder,
                                             Tokens &tokens,
-                                            std::string &home_path,
+                                            const std::string &home_path,
                                             Element &element, bool emoji)
 {
     ArgumentType::ELEMENT_TYPE element_type =
