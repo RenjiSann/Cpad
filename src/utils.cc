@@ -2,6 +2,21 @@
 
 #include <fstream>
 
+std::optional<bool> check_cli_emoji(int argc, char **argv)
+{
+    if (argc < 2)
+        return std::nullopt;
+
+    std::string arg = argv[1];
+    if (arg == CLI_EMOJI_ON)
+        return std::make_optional(true);
+
+    if (arg == CLI_EMOJI_OFF)
+        return std::make_optional(false);
+
+    return std::nullopt;
+}
+
 void home_file_check(const std::string &home_path)
 {
     std::ifstream cpad_file(home_path);

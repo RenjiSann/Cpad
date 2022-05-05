@@ -4,10 +4,10 @@
 #include <map>
 // #include <windows.hh>
 
-#include "element.hh"
+#include "entities/element.hh"
+#include "entities/folder.hh"
 #include "error-handling.hh"
 #include "executor.hh"
-#include "folder.hh"
 #include "singleton.hh"
 
 #define RESET "\033[0m"

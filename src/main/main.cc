@@ -10,9 +10,9 @@
 #include <unistd.h>
 
 #include "argument-type.hh"
-#include "config.hh"
 #include "convertor.hh"
 #include "display.hh"
+#include "entities/config.hh"
 #include "executor.hh"
 #include "scaner.hh"
 #include "utils.hh"
@@ -85,9 +85,14 @@ int main(int argc, char **argv)
     home_file_check(home_path);
 
     auto cfg = Cpad::Config(home_path + ".json");
-    cfg.set_emoji_status(false);
-    cfg.sync_file();
 
+    // Update emoji status. depending on CLI input.
+    std::optional<bool> emoji_cli = check_cli_emoji(argc, argv);
+    if (emoji_cli.has_value() && emoji_cli.value() ^ cfg.get_emoji_status())
+    {
+        cfg.set_emoji_status(emoji_cli.value());
+        cfg.sync_file();
+    }
 
     auto lines = get_all_lines(home_path);
     bool display_emoji = check_emoji(argc, lines, argv);

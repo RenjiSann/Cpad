@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-#include "folder.hh"
+#include "entities/folder.hh"
 #include "singleton.hh"
 
 class Convertor : public Singleton<Convertor>
