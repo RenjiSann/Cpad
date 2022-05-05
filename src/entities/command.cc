@@ -1,11 +1,18 @@
 #include "command.hh"
 
+#include <string>
+
 #include "element.hh"
 
 namespace Cpad
 {
+    Command::Command()
+        : Element(Element::COMMAND)
+    {}
+
     Command::Command(const std::string &cmd)
-        : cmd_(cmd)
+        : Element(Element::COMMAND)
+        , cmd_(cmd)
     {}
 
     CommandPtr Command::from_json(const json &obj_j)
@@ -26,4 +33,10 @@ namespace Cpad
     {
         return cmd_;
     }
+
+    const std::string &Command::to_str() const
+    {
+        return cmd_;
+    }
+
 } // namespace Cpad

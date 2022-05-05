@@ -10,10 +10,9 @@
 
 namespace Cpad
 {
-    bool Element::is_folder() const
-    {
-        return false;
-    }
+    Element::Element(ElementType t)
+        : type_(t)
+    {}
 
     ElementPtr Element::from_json(const json &obj_j)
     {
@@ -30,6 +29,11 @@ namespace Cpad
         if (type == TYPE_COMBO)
             return ComboCommand::from_json(obj_j);
         throw std::invalid_argument("Invalid type");
+    }
+
+    Element::ElementType Element::get_type() const
+    {
+        return type_;
     }
 
     Folder *Element::get_parent() const

@@ -21,26 +21,80 @@ namespace Cpad
      */
     class Element
     {
-    protected:
-        /* parent shared_ptr reference */
-        Folder *parent_ = nullptr;
-
     public:
         /**
-         * @brief Default value return false and is overriden by Folder.
+         * @brief An enumeration to help dynamic dispatch.
          */
-        virtual bool is_folder() const;
+        enum ElementType
+        {
+            FOLDER,
+            COMMAND,
+            COMBO_COMMAND
+        };
 
+    protected:
+        /* parent shared_ptr reference */
+        ElementType type_;
+        Folder *parent_ = nullptr;
+
+        /**
+         * @brief Protected ctor to initialize the `type` field.
+         */
+        Element(ElementType t);
+
+    public:
         /* Serialization and deserialization method */
         static ElementPtr from_json(const json &obj_j);
         virtual json to_json() const = 0;
 
         /* Getters/Setters */
+        ElementType get_type() const;
         Folder *get_parent() const;
         void set_parent(Folder *folder);
+
+        /**
+         * @brief Virtual interface for displaying an element.
+         * @return a string reference to print.
+         */
+        virtual const std::string &to_str() const = 0;
     };
 
 } // namespace Cpad
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
 
 class Element
 {

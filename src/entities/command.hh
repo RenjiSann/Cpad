@@ -16,7 +16,7 @@ namespace Cpad
 
     public:
         /* Ctors */
-        Command() = default;
+        Command();
         Command(const std::string &cmd);
 
         /* Static ctor */
@@ -27,6 +27,8 @@ namespace Cpad
 
         /* Getters/Setters */
         const std::string &get_command() const;
+
+        const std::string &to_str() const override;
     };
 
 } // namespace Cpad

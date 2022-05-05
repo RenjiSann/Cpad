@@ -19,7 +19,7 @@ namespace Cpad
 
     public:
         /* Ctors */
-        Folder() = default;
+        Folder();
         Folder(const std::string &name);
 
         /* Static ctors */
@@ -31,8 +31,6 @@ namespace Cpad
         /* Methods */
         /* Serialization method */
         json to_json() const override;
-        /* Override the "is_folder" getter. */
-        bool is_folder() const override;
 
         /**
          * @brief Swap the children at index i and j.
@@ -46,6 +44,8 @@ namespace Cpad
         void add_child(ElementPtr child);
         void remove_child(int index);
         void clear_children();
+
+        const std::string &to_str() const override;
     };
 
 } // namespace Cpad

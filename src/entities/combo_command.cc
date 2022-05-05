@@ -1,4 +1,5 @@
 #include "combo_command.hh"
+#include <string>
 
 #include "element.hh"
 
@@ -6,13 +7,15 @@ namespace Cpad
 {
 
     ComboCommand::ComboCommand(const std::string &name)
-        : name_(name)
+        : Element(Element::COMBO_COMMAND)
+        , name_(name)
         , cmds_()
     {}
 
     ComboCommand::ComboCommand(const std::string &name,
                                const std::vector<std::string> &cmds_)
-        : name_(name)
+        : Element(Element::COMBO_COMMAND)
+        , name_(name)
         , cmds_(cmds_)
     {}
 
@@ -39,6 +42,11 @@ namespace Cpad
     const std::vector<std::string> &ComboCommand::get_commands() const
     {
         return cmds_;
+    }
+
+    const std::string& ComboCommand::to_str() const
+    {
+        return name_;
     }
 
 } // namespace Cpad

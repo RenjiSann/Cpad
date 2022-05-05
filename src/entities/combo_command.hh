@@ -27,10 +27,12 @@ namespace Cpad
         static ComboPtr from_json(const json &obj_j);
 
         /* Methods */
-        json to_json() const;
+        json to_json() const override;
 
         /* Getters/Setters */
         const std::vector<std::string> &get_commands() const;
+
+        const std::string& to_str() const override;
     };
 
 } // namespace Cpad

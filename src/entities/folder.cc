@@ -11,8 +11,12 @@
 
 namespace Cpad
 {
+    Folder::Folder()
+        : Element(Element::FOLDER)
+    {}
     Folder::Folder(const std::string &name)
-        : name_(name)
+        : Element(Element::FOLDER)
+        , name_(name)
         , children_()
     {}
 
@@ -47,11 +51,6 @@ namespace Cpad
         return json{ { TYPE_FLAG, TYPE_FOLDER },
                      { FOLDER_NAME, name_ },
                      { FOLDER_CONTENT, json_children } };
-    }
-
-    bool Folder::is_folder() const
-    {
-        return true;
     }
 
     const std::string &Folder::get_name() const
@@ -89,6 +88,11 @@ namespace Cpad
     {
         if (i != j)
             std::swap(children_[i], children_[j]);
+    }
+
+    const std::string &Folder::to_str() const
+    {
+        return name_;
     }
 
 } // namespace Cpad
