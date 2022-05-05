@@ -6,8 +6,6 @@
 #include "folder.hh"
 #include "json.hh"
 
-#define PRETTY_CONFIG
-
 #define DEFAULT_CONFIG                                                         \
     "{\n"                                                                      \
     "  \"enable_emojis\": true,\n"                                             \

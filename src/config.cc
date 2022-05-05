@@ -5,6 +5,12 @@
 #include <ios>
 #include <sstream>
 
+#ifdef PRETTY_CONFIG
+#    define JSON_STREAM_MANIPULATOR(X) std::setw(4) << (X)
+#else
+#    define JSON_STREAM_MANIPULATOR(X) (X)
+#endif
+
 namespace Cpad
 {
     Config::Config(const std::string &path)
@@ -59,10 +65,10 @@ namespace Cpad
     void Config::sync_file() const
     {
         // Open the file
-        std::ofstream file;
+        std::ofstream file(path_);
 
         auto json_cfg = to_json();
-        file << std::setw(4) << json_cfg << std::endl;
+        file << JSON_STREAM_MANIPULATOR(json_cfg);
 
         file.close();
     }

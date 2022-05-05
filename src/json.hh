@@ -2,6 +2,9 @@
 
 #include <nlohmann/json.hpp>
 
+/// Macro for enabling pretty printing of JSON.
+#define PRETTY_CONFIG
+
 // Macros for storing JSON keys
 #define CFG_EMOJI_FIELD "enable_emojis"
 #define CFG_EMOJI_DEFAULT true
@@ -21,6 +24,6 @@
 
 namespace Cpad
 {
-    // Alias json to avoid writting nlohmann::json every time.
+    // json alias to avoid writting nlohmann::json every time.
     using json = nlohmann::json;
-}
+} // namespace Cpad
