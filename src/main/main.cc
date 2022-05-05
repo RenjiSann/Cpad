@@ -10,6 +10,7 @@
 #include <unistd.h>
 
 #include "argument-type.hh"
+#include "config.hh"
 #include "convertor.hh"
 #include "display.hh"
 #include "executor.hh"
@@ -82,6 +83,10 @@ int main(int argc, char **argv)
 {
     auto home_path = std::string(getenv("HOME")) + "/.cpad";
     home_file_check(home_path);
+
+    auto cfg = Cpad::Config(home_path + ".json");
+    cfg.set_emoji_status(false);
+    cfg.sync_file();
 
 
     auto lines = get_all_lines(home_path);

@@ -2,25 +2,21 @@
 "enable_emojis": true,
 "current_dir": "sub_dir_1",
 "data": {
-    "index": 0,
     "type": "folder",
     "name": ".",
     "content":[
         {
-            "index": 1,
             "type": "command",
-            "cmd": ["ls", "-a"]
+            "cmd": "ls -a"
         },
         {
-            "index": 2,
             "type": "combo",
             "cmds": [
-                ["ls", "-a"],
-                ["echo", "[?]"]
+                "ls -a",
+                "echo [?]"
             ]
         },
         {
-            "index": 3,
             "type": "folder",
             "name": "sub_dir_1",
             "content": [

@@ -1,7 +1,46 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
+
+#include "json.hh"
+
+namespace Cpad
+{
+    // Forward declaration of classes.
+    class Element;
+    class Folder;
+    class Command;
+    class ComboCommand;
+    // Define alias for Element pointers.
+    using ElementPtr = std::shared_ptr<Element>;
+
+    /**
+     * @brief Describe the common interface to all folder entries.
+     */
+    class Element
+    {
+    protected:
+        /* parent shared_ptr reference */
+        Folder *parent_ = nullptr;
+
+    public:
+        /**
+         * @brief Default value return false and is overriden by Folder.
+         */
+        virtual bool is_folder() const;
+
+        /* Serialization and deserialization method */
+        static ElementPtr from_json(const json &obj_j);
+        virtual json to_json() const = 0;
+
+        /* Getters/Setters */
+        Folder *get_parent() const;
+        void set_parent(Folder *folder);
+    };
+
+} // namespace Cpad
 
 class Element
 {

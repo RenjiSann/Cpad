@@ -16,10 +16,14 @@ find_package(GTest REQUIRED)
 # Global compile options
 add_compile_options(${COMPILE_OPTIONS})
 
-add_subdirectory(src)
+add_subdirectory(src/)
 
 
 add_library(libcpad STATIC ${SOURCE_FILES})
+
+# Add the JSON lib
+find_package(nlohmann_json 3.10 REQUIRED)
+target_link_libraries(libcpad PRIVATE nlohmann_json::nlohmann_json)
 
 add_executable(${TARGET_NAME} ${EXECUTABLE_SOURCE_FILES})
 target_link_libraries(${TARGET_NAME} PRIVATE libcpad)

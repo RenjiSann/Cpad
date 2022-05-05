@@ -1,5 +1,79 @@
 #include "element.hh"
 
+#include <memory>
+#include <stdexcept>
+#include <string>
+
+#include "combo_command.hh"
+#include "command.hh"
+#include "folder.hh"
+
+namespace Cpad
+{
+    bool Element::is_folder() const
+    {
+        return false;
+    }
+
+    ElementPtr Element::from_json(const json &obj_j)
+    {
+        // Check if the type flag is present
+        if (!obj_j.contains(TYPE_FLAG))
+            throw std::invalid_argument("Invalid json");
+
+        auto type = obj_j.at(TYPE_FLAG).get<std::string>();
+
+        if (type == TYPE_FOLDER)
+            return Folder::from_json(obj_j);
+        if (type == TYPE_COMMAND)
+            return Command::from_json(obj_j);
+        if (type == TYPE_COMBO)
+            return ComboCommand::from_json(obj_j);
+        throw std::invalid_argument("Invalid type");
+    }
+
+    Folder *Element::get_parent() const
+    {
+        return parent_;
+    }
+
+    void Element::set_parent(Folder *folder)
+    {
+        parent_ = folder;
+    }
+
+} // namespace Cpad
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
 Element::Element(std::string name, bool is_folder)
     : is_folder_(is_folder)
     , name_(name)
