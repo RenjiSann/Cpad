@@ -15,8 +15,9 @@ void Display::execute(std::string &command, bool emoji, bool clear)
     std::cout << "---\n\n";
 }
 
-void Display::execute_combo(std::string &command, std::string display_line,
-                            Element &element_combo, bool emoji)
+void Display::execute_combo(const std::string &command,
+                            std::string &display_line, Element &element_combo,
+                            bool emoji)
 {
     set_display_line(display_line, "COMBO EXECUTION:", "✔️ ", "", BOLDGREEN,
                      emoji);
@@ -31,9 +32,11 @@ void Display::execute_combo(std::string &command, std::string display_line,
     }
 }
 
-void Display::set_display_line(std::string &display_line, std::string end_str,
-                               std::string emoji_str, std::string replace,
-                               std::string color, bool emoji)
+void Display::set_display_line(std::string &display_line,
+                               const std::string &end_str,
+                               const std::string &emoji_str,
+                               const std::string &replace,
+                               const std::string &color, bool emoji)
 {
     if (emoji)
         display_line = color + emoji_str + end_str;
@@ -42,7 +45,7 @@ void Display::set_display_line(std::string &display_line, std::string end_str,
     display_line += RESET;
 }
 
-bool Display::cd_exec(std::string command)
+bool Display::cd_exec(const std::string &command)
 {
     std::stringstream ss(command);
     std::string token;
@@ -58,7 +61,7 @@ bool Display::cd_exec(std::string command)
     return false;
 }
 
-bool Display::is_template(std::string command)
+bool Display::is_template(const std::string &command)
 {
     if (command == "[?]")
         return true;
@@ -217,7 +220,7 @@ void Display::display_executor(Executor::executor_result executor,
 }
 
 void Display::display(std::map<std::string, Folder> &map,
-                      std::string &current_folder, bool emoji)
+                      const std::string &current_folder, bool emoji)
 {
     std::cout << (emoji ? "📁 : " : "Current folder: ") << BOLDGREEN
               << current_folder << std::endl

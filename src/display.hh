@@ -39,17 +39,18 @@ public:
                           Element &element_combo, bool emoji,
                           bool clear = true);
     void display(std::map<std::string, Folder> &map,
-                 std::string &current_folder, bool emoji);
+                 const std::string &current_folder, bool emoji);
     void display_helper();
-    void set_display_line(std::string &display_line, std::string end_str,
-                          std::string emoji_str, std::string replace,
-                          std::string color, bool emoji);
+    void set_display_line(std::string &display_line, const std::string &end_str,
+                          const std::string &emoji_str,
+                          const std::string &replace, const std::string &color,
+                          bool emoji);
 
 private:
-    bool is_template(std::string command);
+    bool is_template(const std::string &command);
     void remplace_templates(std::string &command, bool clear);
-    bool cd_exec(std::string command);
+    bool cd_exec(const std::string &command);
     void execute(std::string &command, bool emoji, bool clear);
-    void execute_combo(std::string &command, std::string display_line,
+    void execute_combo(const std::string &command, std::string &display_line,
                        Element &combo_elem, bool emoji);
 };
