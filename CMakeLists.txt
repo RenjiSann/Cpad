@@ -14,7 +14,7 @@ set(CMAKE_STATIC_LIBRARY_PREFIX_CXX "")
 find_package(GTest REQUIRED)
 
 # Global compile options
-add_compile_options(${COMPILE_OPTIONS})
+add_compile_options(${COMPILE_OPTIONS} -std=c++20)
 
 add_subdirectory(src/)
 

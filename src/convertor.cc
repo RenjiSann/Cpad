@@ -87,8 +87,7 @@ void Convertor::combo(std::map<std::string, Folder> &map,
     map[key].get_elements().push_back(combo);
 }
 
-std::map<std::string, Folder> Convertor::read(const std::string &path,
-                                              bool &emoji)
+std::map<std::string, Folder> Convertor::read(const std::string &path)
 {
     auto map = std::map<std::string, Folder>();
 
@@ -157,8 +156,7 @@ std::map<std::string, Folder> Convertor::read(const std::string &path,
         }
         else if (token == "EMOJI")
         {
-            ss >> token;
-            emoji = token == "TRUE" ? true : false;
+            // TODO: VIRER.
         }
         else // STOP TOKEN
         {

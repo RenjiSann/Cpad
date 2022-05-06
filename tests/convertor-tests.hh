@@ -9,8 +9,7 @@
 TEST(convertor, easy_parsing)
 {
     std::string path = "./test-ressources/.cpad_easy";
-    bool emoji = true;
-    auto map = Convertor::instance().read(path, emoji);
+    auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 1);
     ASSERT_TRUE(map.find(".") != map.end());
@@ -34,8 +33,7 @@ TEST(convertor, easy_combo)
 {
     std::string path = "./test-ressources/.cpad_combo";
 
-    bool emoji = true;
-    auto map = Convertor::instance().read(path, emoji);
+    auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 1);
     ASSERT_TRUE(map.find(".") != map.end());
@@ -72,8 +70,8 @@ TEST(convertor, easy_combo)
 TEST(convertor, easy_combo_name)
 {
     std::string path = "./test-ressources/.cpad_combo_name";
-    bool emoji = true;
-    auto map = Convertor::instance().read(path, emoji);
+
+    auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 1);
     ASSERT_TRUE(map.find(".") != map.end());
@@ -110,8 +108,8 @@ TEST(convertor, easy_combo_name)
 TEST(convertor, medium)
 {
     std::string path = "./test-ressources/.cpad_medium";
-    bool emoji = true;
-    auto map = Convertor::instance().read(path, emoji);
+
+    auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 2);
 
@@ -141,10 +139,10 @@ TEST(convertor, write_easy)
 {
     std::string path1 = "./test-ressources/.cpad_easy";
     std::string path = "./test-ressources/.cpad_easy_test1";
-    bool emoji = true;
-    auto map_init = Convertor::instance().read(path1, emoji);
+
+    auto map_init = Convertor::instance().read(path1);
     Convertor::instance().write(map_init, path, false);
-    auto map = Convertor::instance().read(path, emoji);
+    auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 1);
     ASSERT_TRUE(map.find(".") != map.end());
@@ -168,10 +166,9 @@ TEST(convertor, write_medium)
 {
     std::string path1 = "./test-ressources/.cpad_medium";
     std::string path = "./test-ressources/.cpad_medium_test1";
-    bool emoji = true;
-    auto map_init = Convertor::instance().read(path1, emoji);
+    auto map_init = Convertor::instance().read(path1);
     Convertor::instance().write(map_init, path, false);
-    auto map = Convertor::instance().read(path, emoji);
+    auto map = Convertor::instance().read(path1);
 
     ASSERT_EQ(map.size(), 2);
 
@@ -202,8 +199,7 @@ TEST(convertor, write_add_command)
     std::string path1 = "./test-ressources/.cpad_medium";
     std::string path = "./test-ressources/.cpad_medium_test1";
 
-    bool emoji = true;
-    auto map = Convertor::instance().read(path1, emoji);
+    auto map = Convertor::instance().read(path1);
 
     std::string parent_folder = ".";
     std::string command_name = "echo new command";
@@ -243,8 +239,7 @@ TEST(convertor, write_remove_command)
     std::string path1 = "./test-ressources/.cpad_medium";
     std::string path = "./test-ressources/.cpad_medium_test1";
 
-    bool emoji = true;
-    auto map = Convertor::instance().read(path1, emoji);
+    auto map = Convertor::instance().read(path1);
 
     std::string parent_folder = ".";
     Convertor::instance().remove_command(map, parent_folder, 4);
@@ -277,8 +272,7 @@ TEST(convertor, write_add_folder)
     std::string path1 = "./test-ressources/.cpad_medium";
     std::string path = "./test-ressources/.cpad_medium_test1";
 
-    bool emoji = true;
-    auto map = Convertor::instance().read(path1, emoji);
+    auto map = Convertor::instance().read(path1);
 
     std::string parent_folder = ".";
     std::string folder_name = "New folder";
@@ -320,8 +314,7 @@ TEST(convertor, write_remove_folder)
     std::string path1 = "./test-ressources/.cpad_medium";
     std::string path = "./test-ressources/.cpad_medium_test1";
 
-    bool emoji = true;
-    auto map = Convertor::instance().read(path1, emoji);
+    auto map = Convertor::instance().read(path1);
 
     std::string parent_folder = ".";
     std::string folder_name = "New folder";
@@ -358,8 +351,7 @@ TEST(convertor, write_reset_folder)
     std::string path1 = "./test-ressources/.cpad_medium";
     std::string path = "./test-ressources/.cpad_medium_test1";
 
-    bool emoji = true;
-    auto map = Convertor::instance().read(path1, emoji);
+    auto map = Convertor::instance().read(path1);
 
     std::string parent_folder = ".";
     Convertor::instance().reset_folder(map, parent_folder);
@@ -376,8 +368,7 @@ TEST(convertor, write_reset_all)
     std::string path1 = "./test-ressources/.cpad_medium";
     std::string path = "./test-ressources/.cpad_medium_test1";
 
-    bool emoji = true;
-    auto map = Convertor::instance().read(path1, emoji);
+    auto map = Convertor::instance().read(path1);
 
     std::string parent_folder = ".";
     Convertor::instance().reset_all(map);
@@ -394,10 +385,9 @@ TEST(convertor, write_easy_combo)
     std::string path1 = "./test-ressources/.cpad_combo";
     std::string path = "./test-ressources/.cpad_easy_test1";
 
-    bool emoji = true;
-    auto map_init = Convertor::instance().read(path1, emoji);
+    auto map_init = Convertor::instance().read(path1);
     Convertor::instance().write(map_init, path, false);
-    auto map = Convertor::instance().read(path, emoji);
+    auto map = Convertor::instance().read(path1);
 
     ASSERT_EQ(map.size(), 1);
     ASSERT_TRUE(map.find(".") != map.end());
@@ -424,10 +414,9 @@ TEST(convertor, write_name_combo)
     std::string path1 = "./test-ressources/.cpad_combo_name";
     std::string path = "./test-ressources/.cpad_easy_test1";
 
-    bool emoji = true;
-    auto map_init = Convertor::instance().read(path1, emoji);
+    auto map_init = Convertor::instance().read(path1);
     Convertor::instance().write(map_init, path, false);
-    auto map = Convertor::instance().read(path, emoji);
+    auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 1);
     ASSERT_TRUE(map.find(".") != map.end());

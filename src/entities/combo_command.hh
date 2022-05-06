@@ -14,14 +14,13 @@ namespace Cpad
     class ComboCommand : public Element
     {
     private:
-        std::string name_;
         std::vector<std::string> cmds_;
 
     public:
         /* Ctors */
-        ComboCommand(const std::string &name);
-        ComboCommand(const std::string &name,
-                     const std::vector<std::string> &cmds);
+        ComboCommand();
+        ComboCommand(const std::vector<std::string> &cmds);
+        virtual ~ComboCommand() = default;
 
         /* Static tor */
         static ComboPtr from_json(const json &obj_j);
@@ -32,7 +31,7 @@ namespace Cpad
         /* Getters/Setters */
         const std::vector<std::string> &get_commands() const;
 
-        const std::string& to_str() const override;
+        const std::string &to_str() const override;
     };
 
 } // namespace Cpad

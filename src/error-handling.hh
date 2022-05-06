@@ -21,26 +21,41 @@ public:
         NONE
     };
 
-    Error check_error(std::map<std::string, Folder> &map, Tokens &tokens,
-                      std::string &current_folder);
+    /// Verify tokens' validity and return correspoding error if not.
+    Error check_error(const Cpad::Folder *folder, Tokens &tokens);
 
 private:
-    Error parsing_int(std::map<std::string, Folder> &map,
-                      std::string &current_folder, std::string &input);
+    /// Cas argument in int and check bounds for current folder.
+    Error parsing_int(const Cpad::Folder *folder, std::string &input);
 
     Error check_arguments_size(Tokens &tokens);
-    Error check_execution(std::map<std::string, Folder> &map, Tokens &tokens,
-                          std::string &current_folder);
-    Error check_create_command(std::map<std::string, Folder> &map,
-                               Tokens &tokens, std::string &current_folder);
-    Error check_create_folder(std::map<std::string, Folder> &map,
-                              Tokens &tokens);
-    Error check_move(std::map<std::string, Folder> &map, Tokens &tokens,
-                     std::string &current_folder);
-    Error check_reset_folder(std::map<std::string, Folder> &map, Tokens &tokens,
-                             std::string &current_folder);
-    Error check_reset_all();
+
+    Error check_execution(const Cpad::Folder *folder, Tokens &tokens);
+
+    /// Check if a command item can be created, without creating a duplicate.
+    Error check_create_command(const Cpad::Folder *folder, Tokens &tokens);
+
+    /// Check if a folder item can be created, without creating a duplicate.
+    Error check_create_folder(const Cpad::Folder *folder, Tokens &tokens);
+
+    /// Check if a command combo item can be created, without creating a
+    /// duplicate.
     Error check_create_combo(Tokens &tokens);
-    Error check_delete(std::map<std::string, Folder> &map, Tokens &tokens,
-                       std::string &current_folder);
+
+    /// Check that given arguments are correct indexes.
+    Error check_move(const Cpad::Folder *folder, Tokens &tokens);
+
+    // TODO
+    /// This one I dont know.
+    Error check_reset_folder(const Cpad::Folder *folder, Tokens &tokens);
+
+    Error check_reset_all();
+
+    /// Verify that given arguments are only numbers and check bounds
+    Error check_delete(const Cpad::Folder *folder, Tokens &tokens);
 };
+
+/**
+ * @brief Return a string corresponding to the what of the error.
+ */
+const std::string &error_to_str(ErrorHandling::Error e);

@@ -14,7 +14,7 @@ set(SOURCE_FILES
     ${CMAKE_SOURCE_DIR}/src/entities/command.cc
     ${CMAKE_SOURCE_DIR}/src/entities/combo_command.cc
 
-    ${CMAKE_SOURCE_DIR}/src/cpad/cpad.cc
+    ${CMAKE_SOURCE_DIR}/src/cpad_system/cpad.cc
 PARENT_SCOPE)
 
 set(EXECUTABLE_SOURCE_FILES

@@ -11,7 +11,7 @@
 
 #include "argument-type.hh"
 #include "convertor.hh"
-#include "cpad/cpah.hh"
+#include "cpad_system/cpah.hh"
 #include "display.hh"
 #include "entities/config.hh"
 #include "executor.hh"
@@ -20,9 +20,11 @@
 
 int main(int argc, char **argv)
 {
+    // TODO: Get rid of this.
     auto home_path = std::string(getenv("HOME")) + "/.cpad";
     home_file_check(home_path);
 
+    // Load the configuration.
     auto cfg = Cpad::Config(home_path + ".json");
 
     // Update emoji status. depending on CLI input.
@@ -33,13 +35,14 @@ int main(int argc, char **argv)
         cfg.sync_file();
     }
 
+    // TODO: Get rid of this.
     auto lines = get_all_lines(home_path);
-    bool display_emoji = check_emoji(argc, lines, argv);
 
-    rewrite(home_path, lines, display_emoji);
-    auto map = Convertor::instance().read(home_path, display_emoji);
+    // TODO: Get rid of this.
+    auto map = Convertor::instance().read(home_path);
 
-    Cpad::Cpad system = Cpad::Cpad(cfg);
+    Cpad::Cpad cpad = Cpad::Cpad(cfg);
 
-    system.repl(map, home_path);
+    // Launch the repl.
+    cpad.repl(map, home_path);
 }

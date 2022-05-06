@@ -18,6 +18,7 @@ namespace Cpad
         /* Ctors */
         Command();
         Command(const std::string &cmd);
+        virtual ~Command() = default;
 
         /* Static ctor */
         static CommandPtr from_json(const json &obj_j);

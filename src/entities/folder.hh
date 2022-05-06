@@ -21,6 +21,7 @@ namespace Cpad
         /* Ctors */
         Folder();
         Folder(const std::string &name);
+        virtual ~Folder() = default;
 
         /* Static ctors */
         /// JSON deserialization ctor.
