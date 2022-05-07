@@ -125,6 +125,7 @@ namespace Cpad
             int i, j;
             std::tie(i, j) = std::get<std::pair<int, int>>(t.get_data());
             swap_entries(i, j);
+            break;
         case Task::RESET_FOLDER:
             throw std::invalid_argument("Unimplemented feature: Folder reset.");
             break;

@@ -34,7 +34,7 @@ namespace Cpad
      */
     std::pair<int, int> tok_to_index_pair(const Tokens &toks)
     {
-        return { std::stoi(toks.second[1]), std::stoi(toks.second[2]) };
+        return { std::stoi(toks.second.at(1)) - 1, std::stoi(toks.second.at(2)) - 1 };
     }
 
     /**
