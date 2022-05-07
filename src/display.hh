@@ -6,6 +6,7 @@
 #include <string>
 // #include <windows.hh>
 
+#include "entities/combo_command.hh"
 #include "entities/element.hh"
 #include "entities/folder.hh"
 #include "error-handling.hh"
@@ -66,13 +67,46 @@ namespace Cpad
                            bool emoji);
 
     public:
-
+        /**
+         * @brief Display the content of a folder.
+         *
+         * @param folder
+         */
         void display_folder(Folder *folder) const;
+
+        /**
+         * @brief Display the given error.
+         */
         void display_error(ErrorHandling::Error e) const;
+
+        /**
+         * @brief Launch a command and display the output to std::cout.
+         *
+         * @param cmd: The command to run.
+         */
+        void run_and_display(Command *cmd);
+
+        /**
+         * @brief Launch a combo command and display the output to std::cout.
+         *
+         * @param combo: The combo command to run.
+         */
+        void run_and_display(ComboCommand *combo);
+
+        /**
+         * @brief Display the help message.
+         */
         void display_help() const;
 
+        /**
+         * @brief Clear the terminal.
+         */
         void clear() const;
 
+        /**
+         * @brief Set the internal emoji status to avoid passing it as a
+         * function argument.
+         */
         void set_emoji_status(bool val);
     };
 

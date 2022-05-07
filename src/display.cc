@@ -66,6 +66,9 @@ namespace Cpad
 
     void Output::display_error(ErrorHandling::Error error) const
     {
+        // Clear the terminal.
+        clear();
+
         // Get the corresponding error message.
         const std::string &err = error_to_str(error);
 
