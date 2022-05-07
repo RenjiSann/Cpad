@@ -4,10 +4,159 @@
 #include <memory>
 #include <stack>
 #include <stdlib.h>
+#include <string>
+#include <strings.h>
+#include <tuple>
 #include <unistd.h>
+#include <vector>
 
 #include "argument-type.hh"
 #include "convertor.hh"
+#include "entities/combo_command.hh"
+#include "entities/command.hh"
+#include "entities/element.hh"
+#include "entities/folder.hh"
+#include "json.hh"
+#include "scaner.hh"
+
+namespace Cpad
+{
+    /**
+     * @brief Helper function to get the index from a token object.
+     */
+    int tok_to_index(const Tokens &toks)
+    {
+        return std::stoi(toks.second[1]);
+    }
+
+    /**
+     * @brief Helper function to get the index pair from a token object.
+     */
+    std::pair<int, int> tok_to_index_pair(const Tokens &toks)
+    {
+        return { std::stoi(toks.second[1]), std::stoi(toks.second[2]) };
+    }
+
+    /**
+     * @brief Helper function to get the string parameter from a token object.
+     */
+    std::string tok_to_sring(const Tokens &toks)
+    {
+        return toks.second[1];
+    }
+
+    /**
+     * @brief Helper function to get the string vector parameter from a token
+     * object.
+     */
+    std::vector<std::string> tok_to_sring_vec(const Tokens &toks)
+    {
+        std::vector<std::string> res(toks.second.size() - 1);
+        res.insert(res.begin(), toks.second.begin() + 1, toks.second.end());
+        return res;
+    }
+
+    /**
+     * @brief Special case fucntion called when
+     *
+     * @param toks
+     * @return std::pair<Task::TaskType, Task::TaskData>
+     */
+    std::pair<Task::TaskType, Task::TaskData> tok_to_exec(const Tokens &toks,
+                                                          const Folder *folder)
+    {
+        if (toks.second[0] == "b")
+            return { Task::BACK_FOLDER, -1 };
+        else if (toks.second[0] == "h")
+            return { Task::DISPLAY_HELP, -1 };
+        else if (toks.second[0] == "q")
+            return { Task::QUIT, -1 };
+
+        // In the last case, get the command or combo or folder in the
+        // corresponding index.
+        auto index = std::stoi(toks.second[0]);
+        auto child = folder->get_children()[index];
+
+        switch (child->get_type())
+        {
+        case Element::COMMAND:
+            return { Task::RUN_COMMAND, index };
+        case Element::COMBO_COMMAND:
+            return { Task::RUN_COMBO, index };
+        case Element::FOLDER:
+            return { Task::GOTO_FOLDER, index };
+        }
+    }
+
+    Task::Task(const Tokens &toks, const Folder *folder)
+    {
+        switch (toks.first)
+        {
+        case ArgumentType::ELEMENT_TYPE::EXECUTION:
+            std::tie(type_, data_) = tok_to_exec(toks, folder);
+            break;
+        case ArgumentType::ELEMENT_TYPE::DELETE:
+            type_ = DELETE_CHILD;
+            data_ = tok_to_index(toks);
+            break;
+        case ArgumentType::ELEMENT_TYPE::RESET_FOLDER:
+            type_ = RESET_FOLDER;
+            data_ = tok_to_index(toks);
+            break;
+        case ArgumentType::ELEMENT_TYPE::CREATE_COMMAND:
+            type_ = CREATE_COMMAND;
+            data_ = tok_to_sring(toks);
+            break;
+        case ArgumentType::ELEMENT_TYPE::CREATE_FOLDER:
+            type_ = CREATE_FOLDER;
+            data_ = tok_to_sring(toks);
+            break;
+        case ArgumentType::ELEMENT_TYPE::CREATE_COMBO:
+            type_ = CREATE_COMBO;
+            data_ = tok_to_sring_vec(toks);
+            break;
+        case ArgumentType::ELEMENT_TYPE::MOVE:
+            type_ = SWAP_ENTRIES;
+            data_ = tok_to_index_pair(toks);
+            break;
+        case ArgumentType::ELEMENT_TYPE::RESET_ALL:
+            type_ = RESET_ALL;
+            break;
+        }
+    }
+
+    bool Task::is_help_or_exec() const
+    {
+        return type_ == DISPLAY_HELP || type_ == RUN_COMBO
+            || type_ == RUN_COMMAND;
+    }
+
+} // namespace Cpad
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
 
 Element &Executor::get_element_from_index(std::map<std::string, Folder> &map,
                                           const std::string &current_folder,
@@ -27,8 +176,10 @@ Executor::execute_execution(std::map<std::string, Folder> &map,
         return executor_result(ExecutionType::QUIT, "");
     else if (tokens.second[0] == "b")
         return executor_result(ExecutionType::BACK_FOLDER, "");
+
     size_t input_value = std::stoi(tokens.second[0]);
     auto element = get_element_from_index(map, current_folder, input_value - 1);
+
     if (element.get_is_folder())
         return executor_result(ExecutionType::MOVE_FOLDER, element.get_name());
     else if (element.get_is_combo())
