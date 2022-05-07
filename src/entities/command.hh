@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include "element.hh"
 #include "json.hh"
@@ -22,6 +23,7 @@ namespace Cpad
 
         /* Static ctor */
         static CommandPtr from_json(const json &obj_j);
+        static CommandPtr from_string(const std::string &cmd);
 
         /* Methods */
         json to_json() const override;

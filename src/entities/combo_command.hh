@@ -24,6 +24,7 @@ namespace Cpad
 
         /* Static tor */
         static ComboPtr from_json(const json &obj_j);
+        static ComboPtr from_vec(const std::vector<std::string> &cmds);
 
         /* Methods */
         json to_json() const override;

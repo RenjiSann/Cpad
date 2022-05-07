@@ -60,13 +60,19 @@ namespace Cpad
 
         bool is_template(const std::string &command);
         void remplace_templates(std::string &command, bool clear);
-        bool cd_exec(const std::string &command);
-        void execute(std::string &command, bool emoji, bool clear);
-        void execute_combo(const std::string &command,
-                           std::string &display_line, Element &combo_elem,
-                           bool emoji);
 
     public:
+        /**
+         * @brief Print a bye message.
+         */
+        void bye() const;
+
+        /**
+         * @brief Display the message of a successfully done task.
+         * @param task: The task to print.
+         */
+        void display_process(const Task &task) const;
+
         /**
          * @brief Display the content of a folder.
          *
@@ -84,14 +90,14 @@ namespace Cpad
          *
          * @param cmd: The command to run.
          */
-        void run_and_display(Command *cmd);
+        void run_command(Command *cmd);
 
         /**
          * @brief Launch a combo command and display the output to std::cout.
          *
          * @param combo: The combo command to run.
          */
-        void run_and_display(ComboCommand *combo);
+        void run_combo(ComboCommand *combo);
 
         /**
          * @brief Display the help message.
@@ -109,6 +115,8 @@ namespace Cpad
          */
         void set_emoji_status(bool val);
     };
+
+    const std::string &get_message_from_task(Task::TaskType type);
 
     /**
      * @brief Reset color, set the good one, print content and reset again.

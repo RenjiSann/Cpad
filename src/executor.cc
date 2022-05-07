@@ -42,7 +42,7 @@ namespace Cpad
      */
     std::string tok_to_sring(const Tokens &toks)
     {
-        return toks.second[1];
+        return toks.second.at(1);
     }
 
     /**
@@ -65,26 +65,30 @@ namespace Cpad
     std::pair<Task::TaskType, Task::TaskData> tok_to_exec(const Tokens &toks,
                                                           const Folder *folder)
     {
-        if (toks.second[0] == "b")
+        if (toks.second.at(0) == "b")
             return { Task::BACK_FOLDER, -1 };
-        else if (toks.second[0] == "h")
+        else if (toks.second.at(0) == "h")
             return { Task::DISPLAY_HELP, -1 };
-        else if (toks.second[0] == "q")
+        else if (toks.second.at(0) == "q")
             return { Task::QUIT, -1 };
 
         // In the last case, get the command or combo or folder in the
         // corresponding index.
-        auto index = std::stoi(toks.second[0]);
-        auto child = folder->get_children()[index];
+        auto index = std::stoi(toks.second.at(0)) - 1;
+        auto child = folder->get_children().at(index).get();
+
+        auto cmd = dynamic_cast<Command *>(child);
+        auto fold = dynamic_cast<Folder *>(child);
+        auto combo = dynamic_cast<ComboCommand *>(child);
 
         switch (child->get_type())
         {
         case Element::COMMAND:
-            return { Task::RUN_COMMAND, index };
+            return { Task::RUN_COMMAND, cmd };
         case Element::COMBO_COMMAND:
-            return { Task::RUN_COMBO, index };
+            return { Task::RUN_COMBO, combo };
         case Element::FOLDER:
-            return { Task::GOTO_FOLDER, index };
+            return { Task::GOTO_FOLDER, fold };
         }
     }
 
@@ -125,10 +129,20 @@ namespace Cpad
         }
     }
 
-    bool Task::is_help_or_exec() const
+    bool Task::is_internal_task() const
     {
-        return type_ == DISPLAY_HELP || type_ == RUN_COMBO
-            || type_ == RUN_COMMAND;
+        return type_ != DISPLAY_HELP && type_ != RUN_COMBO
+            && type_ != RUN_COMMAND;
+    }
+
+    Task::TaskType Task::get_type() const
+    {
+        return type_;
+    }
+
+    const Task::TaskData &Task::get_data() const
+    {
+        return data_;
     }
 
 } // namespace Cpad

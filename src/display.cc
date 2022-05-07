@@ -1,14 +1,36 @@
 #include "display.hh"
 
 #include <iostream>
+#include <map>
+#include <sstream>
+#include <string>
 #include <unistd.h>
 
 #include "entities/combo_command.hh"
 #include "entities/element.hh"
 #include "error-handling.hh"
+#include "executor.hh"
 
 namespace Cpad
 {
+
+    void Output::bye() const
+    {
+        if (emoji_)
+            std::cout << "👋 ";
+        std::cout << BOLDGREEN << "See you soon !" << RESET << std::endl;
+    }
+
+    void Output::display_process(const Task &task) const
+    {
+        std::stringstream ss;
+        ss << BOLDGREEN;
+        if (emoji_)
+            ss << "✔️ ";
+        ss << get_message_from_task(task.get_type()) << std::endl;
+
+        std::cout << ss.str();
+    }
 
     void Output::display_folder(Folder *folder) const
     {
@@ -76,6 +98,29 @@ namespace Cpad
         std::cout << YELLOW << "     Press " << BOLDGREEN << "h" << YELLOW
                   << " to see the documentation." << RESET << '\n'
                   << std::endl;
+    }
+
+    void Output::run_command(Command *cmd)
+    {
+        // Only copy pasted for the moment.
+        // TODO: Do this better.
+        std::string cmd_string = cmd->get_command();
+        if (is_template(cmd_string))
+            remplace_templates(cmd_string, true);
+
+        std::cout << COL_BOLDGREEN << (emoji_ ? "🔧 " : "")
+                  << "Execution of: " << COL_RESET << cmd_string << std::endl;
+
+        std::cout << "---\n";
+
+        system(cmd_string.c_str());
+
+        std::cout << "---\n\n";
+    }
+
+    void Output::run_combo(__attribute__((unused)) ComboCommand *combo)
+    {
+        // TODO: Flemme for now.
     }
 
     void Output::display_help() const
@@ -156,6 +201,13 @@ namespace Cpad
                   << RESET << BOLDGREEN << " to back to Cpad" << std::endl;
         std::cout << RESET;
         std::cout << std::endl;
+
+        // Wait for the user to press `Enter` to go back to the REPL.
+        std::cout << "➜ ";
+        std::string tmp;
+        std::getline(std::cin, tmp);
+
+        clear();
     }
 
     void Output::clear() const
@@ -166,6 +218,55 @@ namespace Cpad
     void Output::set_emoji_status(bool v)
     {
         emoji_ = v;
+    }
+
+    bool Output::is_template(const std::string &command)
+    {
+        if (command == "[?]")
+            return true;
+        return command.find("[?]") != std::string::npos;
+    }
+
+    void Output::remplace_templates(std::string &command, bool clear)
+    {
+        size_t index = 1;
+
+        while (true)
+        {
+            if (command.find("[?]", 0) == std::string::npos)
+                break;
+            std::string user_input;
+
+            std::cout << COL_BOLDGREEN << "current_command: " << COL_RESET
+                      << command << "\n";
+            std::cout << index++ << " ➜ remplace " << COL_RED << "[?]"
+                      << COL_RESET << " ➜ ";
+            std::getline(std::cin, user_input);
+            std::cout << '\n';
+            command.replace(command.find("[?]"), 3, user_input);
+            if (clear)
+                system("clear");
+        }
+    }
+    const std::string &get_message_from_task(Task::TaskType type)
+    {
+        const static std::map<Task::TaskType, std::string> messages = {
+
+            { Task::BACK_FOLDER, "You moved folder." },
+            { Task::GOTO_FOLDER, "You moved folder." },
+            { Task::DELETE_CHILD, "Removed." },
+            { Task::CREATE_COMMAND, "Command created." },
+            { Task::CREATE_COMBO, "Combo command created." },
+            { Task::CREATE_FOLDER, "Folder created." },
+            { Task::SWAP_ENTRIES, "Entries have been swapped." },
+            { Task::RUN_COMMAND, "PLOUF." },
+            { Task::RUN_COMBO, "PLIF" },
+            { Task::RESET_FOLDER, "Folder cleared." },
+            { Task::RESET_ALL, "Data cleared." },
+            { Task::DISPLAY_HELP, "Should not be printed." },
+        };
+
+        return messages.at(type);
     }
 
     std::ostream &operator<<(std::ostream &os, Color c)

@@ -1,5 +1,6 @@
 #include "combo_command.hh"
 
+#include <memory>
 #include <string>
 
 #include "element.hh"
@@ -29,6 +30,11 @@ namespace Cpad
             res.cmds_.push_back(json::string_t(js));
 
         return std::make_shared<ComboCommand>(std::move(res));
+    }
+
+    ComboPtr ComboCommand::from_vec(const std::vector<std::string> &cmds)
+    {
+        return std::make_shared<ComboCommand>(cmds);
     }
 
     json ComboCommand::to_json() const

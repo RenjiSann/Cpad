@@ -7,6 +7,8 @@
 #include <variant>
 #include <vector>
 
+#include "entities/combo_command.hh"
+#include "entities/command.hh"
 #include "entities/folder.hh"
 #include "scaner.hh"
 #include "singleton.hh"
@@ -43,10 +45,12 @@ namespace Cpad
 
         using TaskData = std::variant<
             std::pair<int, int> /* SWAP_FOLDERS */,
-            std::string /* RUN_CMD, CREATE_FOLDER, CREATE_COMMAND */,
-            std::vector<std::string> /* RUN_COMBO, CREATE_COMBO */,
-            int /* GOTO_FOLDER, DELETE_CHILD,
-                                        RESET_FOLDER */
+            std::string /* CREATE_FOLDER, CREATE_COMMAND */,
+            std::vector<std::string> /* CREATE_COMBO */,
+            int /* DELETE_CHILD, RESET_FOLDER */,
+            Folder* /* GOTO_FOLDER */,
+            Command* /* RUN_CMD */,
+            ComboCommand* /* RUN_COMBO */
             >;
 
     private:
@@ -56,9 +60,9 @@ namespace Cpad
         TaskData data_;
 
     public:
-        Task(const Tokens &tokens, const Folder* folder);
+        Task(const Tokens &tokens, const Folder *folder);
 
-        bool is_help_or_exec() const;
+        bool is_internal_task() const;
 
         /* Getters/Setters */
         TaskType get_type() const;

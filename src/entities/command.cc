@@ -1,5 +1,6 @@
 #include "command.hh"
 
+#include <memory>
 #include <string>
 
 #include "element.hh"
@@ -22,6 +23,11 @@ namespace Cpad
         res.cmd_ = json::string_t(obj_j[COMMAND_COMMAND]);
 
         return std::make_shared<Command>(std::move(res));
+    }
+
+    CommandPtr Command::from_string(const std::string &cmd)
+    {
+        return std::make_shared<Command>(cmd);
     }
 
     json Command::to_json() const

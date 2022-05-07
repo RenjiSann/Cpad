@@ -20,14 +20,12 @@
 
 int main(int argc, char **argv)
 {
-    // TODO: Get rid of this.
     auto home_path = std::string(getenv("HOME")) + "/.cpad";
-    home_file_check(home_path);
 
     // Load the configuration.
-    auto cfg = Cpad::Config(home_path + ".json");
+    auto cfg = Cpad::Config(home_path);
 
-    // Update emoji status. depending on CLI input.
+    // Update emoji status depending on CLI input.
     std::optional<bool> emoji_cli = check_cli_emoji(argc, argv);
     if (emoji_cli.has_value() && emoji_cli.value() ^ cfg.get_emoji_status())
     {
@@ -35,14 +33,8 @@ int main(int argc, char **argv)
         cfg.sync_file();
     }
 
-    // TODO: Get rid of this.
-    auto lines = get_all_lines(home_path);
-
-    // TODO: Get rid of this.
-    auto map = Convertor::instance().read(home_path);
-
     Cpad::Cpad cpad = Cpad::Cpad(cfg);
 
     // Launch the repl.
-    cpad.repl(map, home_path);
+    cpad.repl();
 }
