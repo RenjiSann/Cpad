@@ -90,6 +90,7 @@ namespace Cpad
         case Element::FOLDER:
             return { Task::GOTO_FOLDER, fold };
         }
+        __builtin_unreachable();
     }
 
     Task::Task(const Tokens &toks, const Folder *folder)
