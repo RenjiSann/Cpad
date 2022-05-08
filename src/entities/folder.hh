@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "element.hh"
-#include "json.hh"
+#include "../json.hh"
 
 namespace Cpad
 {

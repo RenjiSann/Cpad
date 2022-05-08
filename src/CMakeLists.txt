@@ -7,6 +7,7 @@ set(SOURCE_FILES
     ${CMAKE_SOURCE_DIR}/src/display.cc
     ${CMAKE_SOURCE_DIR}/src/convertor.cc
     ${CMAKE_SOURCE_DIR}/src/argument-type.cc
+    ${CMAKE_SOURCE_DIR}/src/messages-manager.cc
 
     ${CMAKE_SOURCE_DIR}/src/entities/config.cc
     ${CMAKE_SOURCE_DIR}/src/entities/element.cc

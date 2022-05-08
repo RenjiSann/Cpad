@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "convertor-tests.hh"
-#include "init-tests.hh"
+#include "error_tests.hh"
 
 int main(int argc, char *argv[])
 {

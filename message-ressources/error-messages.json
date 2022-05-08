@@ -1,0 +1,105 @@
+{
+    "errors":
+    {
+        "emoji": "❌",
+        "messages": {
+            "command_name": {
+                "english": "You can't have the same commands in the same folder twice.",
+                "french": "Vous ne pouvez pas avoir deux fois les mêmes commandes dans le même dossier."
+            },
+            "folder_name": {
+                "english": "You can't have the same folder in the same place twice.",
+                "french": "Vous ne pouvez pas avoir deux fois le même dossier au même endroit."
+            },
+            "big_index": {
+                "english": "Your index is too big.",
+                "french": "Votre index est trop grand."
+            },
+            "out_of_range": {
+                "english": "Your arguments must be in the interval of your folder.",
+                "french": "Vos arguments doivent se trouver dans l'intervalle de votre dossier."
+            },
+            "too_much_arguments": {
+                "english": "Your function needs less arguments to be executed.",
+                "french": "Votre fonction a besoin de moins d'arguments pour être exécutée."
+            },
+            "need_more_arguments": {
+                "english": "Your function needs more arguments to be executed.",
+                "french": "Votre fonction a besoin de plus d'arguments pour être exécutée."
+            },
+            "invalid_input": {
+                "english": "Your input is invalid.",
+                "french": "Votre entrée n'est pas valide."
+            }
+        }
+    },
+    "execution":
+    {
+        "emoji": "✔️",
+        "messages": {
+            "move_folder": {
+                "english": "You move elements:",
+                "french": "Vous déplacez les éléments:"
+            },
+            "back_folder": {
+                "english": "You have returned to your old file:",
+                "french": "Vous êtes revenu à votre ancien dossier:"
+            },
+            "create_command": {
+                "english": "Creation of combo:",
+                "french": "Création d'un combo:"
+            },
+            "create_folder": {
+                "english": "Creation of the folder:",
+                "french": "Création du dossier:"
+            },
+            "create_combo": {
+                "english": "Creation of combo:",
+                "french": "Création d'un combo:"
+            },
+            "delete_command": {
+                "english": "Deletion of command:",
+                "french": "Suppression de la commande:"
+            },
+            "delete_folder": {
+                "english": "Deletion of folder:",
+                "french": "Suppression d'un dossier:"
+            },
+            "delete_combo":
+            {
+                "english": "Deletion of combo:",
+                "french": "Suppression du combo:"
+            },
+            "reset_folder":
+            {
+                "english": "You reset the folder:",
+                "french": "Vous avez réinitialisé le dossier:"
+            },
+            "reset_all":
+            {
+                "english": "You reset all folders:",
+                "french": "Vous avez réinitialisé tous les dossiers:"
+            },
+            "move":
+            {
+                "english": "You move elements:",
+                "french": "Vous déplacez des éléments:"
+            },
+            "display_help":
+            {
+                "english": "You reset all folders:",
+                "french": "Vous avez réinitialisé tous les dossiers:"
+            },
+            "clear":
+            {
+                "english": "Your input is invalid.",
+                "french": "Votre entrée n'est pas valide."
+            },
+            "quit":
+            {
+                "english": "See you soon !",
+                "french": "A bientôt !"
+            }
+        }
+    }
+}

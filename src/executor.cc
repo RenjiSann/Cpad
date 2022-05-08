@@ -86,6 +86,7 @@ namespace Cpad
         case Element::FOLDER:
             return { Task::GOTO_FOLDER, index };
         }
+        return { Task::QUIT, index };
     }
 
     Task::Task(const Tokens &toks, const Folder *folder)

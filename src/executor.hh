@@ -40,7 +40,6 @@ namespace Cpad
             DISPLAY_HELP,
             QUIT
         };
-
         using TaskData = std::variant<
             std::pair<int, int> /* SWAP_FOLDERS */,
             std::string /* RUN_CMD, CREATE_FOLDER, CREATE_COMMAND */,
@@ -56,7 +55,7 @@ namespace Cpad
         TaskData data_;
 
     public:
-        Task(const Tokens &tokens, const Folder* folder);
+        Task(const Tokens &tokens, const Folder *folder);
 
         bool is_help_or_exec() const;
 
