@@ -23,7 +23,6 @@ nlohmann::json MessagesManager::read_json(const std::string &path)
 
 void MessagesManager::from_json(const nlohmann::json &obj_j)
 {
-    std::cout << "oui\n";
     parse_messages(obj_j, true);
     parse_messages(obj_j, false);
 }
@@ -57,15 +56,18 @@ void MessagesManager::add_error_element(std::string &error_str,
 {
     auto error = string_to_error(error_str);
 
-    std::pair<Language, ErrorHandling::Error> error_english(Language::ENGLISH, error);
-    std::pair<Language, ErrorHandling::Error> error_french(Language::FRENCH, error);
+    std::pair<Language, ErrorHandling::Error> error_english(Language::ENGLISH,
+                                                            error);
+    std::pair<Language, ErrorHandling::Error> error_french(Language::FRENCH,
+                                                           error);
 
     error_messages_.insert({ error_english, message_english });
     error_messages_.insert({ error_french, message_french });
 }
 
-void MessagesManager::add_execution_element(std::string &error_str, Message &message_english,
-                           Message &message_french)
+void MessagesManager::add_execution_element(std::string &error_str,
+                                            Message &message_english,
+                                            Message &message_french)
 {
     auto exec = string_to_exec_type(error_str);
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <map>
 
 #include "error-handling.hh"
@@ -7,7 +8,6 @@
 #include "json-messages.hh"
 #include "json.hh"
 #include "singleton.hh"
-#include <iostream>
 
 /**
  * @brief Class responsible for json parsing of resource messages, and their
@@ -53,11 +53,11 @@ public:
 private:
     ErrorHandling::Error string_to_error(const std::string &task) const;
     Executor::ExecutionType string_to_exec_type(const std::string &task) const;
-    void add_error_element(std::string& error, Message& message_english, Message& message_french);
-    void add_execution_element(std::string& error, Message& message_english, Message& message_french);
-
+    void add_error_element(std::string &error, Message &message_english,
+                           Message &message_french);
+    void add_execution_element(std::string &error, Message &message_english,
+                               Message &message_french);
     void parse_messages(const nlohmann::json &obj_j, bool is_error);
-
 
 private:
     error_messages_map error_messages_;
